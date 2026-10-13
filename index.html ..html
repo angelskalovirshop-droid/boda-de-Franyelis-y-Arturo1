@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda Joel Arturo & Franyelis Yelimar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#f4f7f4',
+                            100: '#e3eae3',
+                            600: '#4a6b52',
+                            700: '#38533f',
+                            800: '#2c4232',
+                        },
+                        champagne: '#f7e7ce',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                        cursive: ['Great Vibes', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-image: linear-gradient(rgba(240, 245, 240, 0.4), rgba(240, 245, 240, 0.4)), url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=1200');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            font-family: 'Montserrat', sans-serif;
+            color: #2c4232;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+        }
+
+        .modal-enter {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative pb-16 antialiased selection:bg-sage-600 selection:text-white">
+
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="musicToggleBtn" onclick="toggleAudio()" class="w-12 h-12 rounded-full bg-sage-700 text-white shadow-xl flex items-center justify-center hover:bg-sage-800 transition transform hover:scale-105 border-2 border-white/50" title="Reproducir / Pausar Música">
+            <i id="musicIcon" class="fas fa-music text-lg animate-pulse"></i>
+        </button>
+        <audio id="bgMusic" loop preload="auto">
+            <source src="https://cdns-preview-d.dzcdn.net/stream/c-d9359e9a37e583f8b0e7a2a1a8c9b4e1-3.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Pantalla de bienvenida / Sobre de apertura -->
+    <section id="welcomeScreen" class="min-h-screen flex items-center justify-center p-4 relative z-20">
+        <div class="glass-card max-w-md w-full rounded-3xl p-8 sm:p-10 text-center relative overflow-hidden border-2 border-white/80 shadow-2xl">
+            <div class="absolute -top-10 -left-10 w-28 h-28 opacity-40 pointer-events-none">
+                <i class="fas fa-spa text-6xl text-sage-600"></i>
+            </div>
+            
+            <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-sage-700 text-white flex items-center justify-center shadow-md">
+                <i class="fas fa-heart text-2xl"></i>
+            </div>
+
+            <h1 class="font-serif text-3xl sm:text-4xl font-bold tracking-wide text-sage-800 mb-2">
+                Joel Suarez
+            </h1>
+            <span class="font-cursive text-3xl text-sage-600 my-1 block">&amp;</span>
+            <h1 class="font-serif text-3xl sm:text-4xl font-bold tracking-wide text-sage-800 mb-6">
+                Franyelis Delgado
+            </h1>
+
+            <div class="w-12 h-0.5 bg-sage-600/40 mx-auto mb-6"></div>
+
+            <p class="font-serif text-xl text-sage-800 tracking-wider mb-2 font-semibold">
+                14 de noviembre de 2026
+            </p>
+            <p class="text-sm font-light text-gray-700 italic mb-8">
+                Les Invitamos Cordialmente
+            </p>
+
+            <button onclick="openInvitation()" class="w-full py-3.5 px-6 rounded-full bg-sage-700 hover:bg-sage-800 text-white font-medium shadow-lg hover:shadow-xl transition duration-300 transform active:scale-95 tracking-wider text-sm uppercase flex items-center justify-center gap-2">
+                <span>Abrir Invitación</span>
+                <i class="fas fa-envelope-open text-xs"></i>
+            </button>
+        </div>
+    </section>
+
+    <main id="mainContent" class="hidden max-w-xl mx-auto px-4 py-8 space-y-10 relative z-10">
+
+        <!-- Nombres y Versículo -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 text-center space-y-6">
+            <div class="text-center">
+                <h2 class="font-serif text-3xl font-bold text-sage-800">Joel Arturo</h2>
+                <p class="font-cursive text-2xl text-sage-600">&amp;</p>
+                <h2 class="font-serif text-3xl font-bold text-sage-800">Franyelis Yelimar</h2>
+            </div>
+
+            <div class="bg-sage-700 text-white py-2 px-4 rounded-xl text-xs font-semibold tracking-widest uppercase inline-block shadow-sm">
+                Nuestra Boda
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 text-sm border-t border-b border-sage-600/20 py-4">
+                <div class="space-y-1">
+                    <p class="font-semibold text-sage-800">Sr. y Sra.</p>
+                    <p class="text-gray-700 font-medium">Edgar Escalona</p>
+                    <p class="text-gray-700 font-medium">Liseth Morales</p>
+                    <span class="text-xs text-sage-600 italic block mt-1">(Padres del Novio)</span>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-semibold text-sage-800">Sr. y Sra.</p>
+                    <p class="text-gray-700 font-medium">Levis Delgado</p>
+                    <p class="text-gray-700 font-medium">Francis Cabrera</p>
+                    <span class="text-xs text-sage-600 italic block mt-1">(Padres de la Novia)</span>
+                </div>
+            </div>
+
+            <p class="text-sm italic text-gray-700 leading-relaxed font-serif px-2">
+                "El propósito de Dios nos unió, el amor nos hizo inseparables y ahora queremos celebrar este gran día contigo."
+            </p>
+
+            <div class="bg-sage-50/80 p-4 rounded-2xl border border-sage-100 text-xs text-gray-700 leading-relaxed font-serif">
+                <p class="font-bold text-sage-800 mb-1">Eclesiastés 4:9, 12:</p>
+                <p>«Más valen dos que uno, porque obtienen más fruto de su esfuerzo. [...] Uno solo puede ser vencido, pero dos pueden resistir. ¡La cuerda de tres hilos no se rompe fácilmente!»</p>
+            </div>
+        </section>
+
+        <!-- Galería de Fotos -->
+        <section class="glass-card rounded-3xl p-6 text-center space-y-4">
+            <h2 class="font-serif text-2xl font-bold text-sage-800 uppercase tracking-wide">Galería de Fotos</h2>
+            
+            <p class="text-xs text-gray-600">Desliza para ver más fotos o sube tus propios recuerdos.</p>
+
+            <div class="relative group">
+                <div id="galleryContainer" class="flex overflow-x-auto snap-x snap-mandatory no-scrollbar rounded-2xl aspect-[4/5] bg-gray-100 shadow-inner">
+                </div>
+
+                <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full font-mono" id="photoCounter">
+                    1 / 3
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <label for="imageUpload" class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-sage-100 hover:bg-sage-200 text-sage-800 rounded-full text-xs font-semibold transition border border-sage-600/30">
+                    <i class="fas fa-upload text-sage-600"></i>
+                    <span>Subir / Cambiar Fotos</span>
+                </label>
+                <input type="file" id="imageUpload" accept="image/*" multiple class="hidden" onchange="handleImageUpload(event)">
+            </div>
+        </section>
+
+        <!-- Fecha, Reloj y RSVP -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 text-center space-y-6">
+            <h2 class="font-serif text-2xl font-bold text-sage-800 uppercase tracking-wide">Info de la Recepción</h2>
+            
+            <p class="text-xs uppercase font-semibold tracking-widest text-sage-700">La recepción se llevará a cabo a las:</p>
+            <p class="font-serif text-3xl font-bold text-sage-800">6:00 PM</p>
+
+            <div class="flex items-center justify-center gap-4 text-sm font-semibold text-sage-800 border-y border-sage-600/20 py-3">
+                <span>SÁBADO</span>
+                <span class="text-2xl font-serif text-sage-700 font-bold px-2">14</span>
+                <span>NOVIEMBRE</span>
+            </div>
+            <p class="font-serif text-xl font-bold text-sage-800">2026</p>
+
+            <!-- Contador -->
+            <div class="space-y-3 pt-2">
+                <h3 class="text-xs uppercase tracking-widest font-semibold text-sage-700">Cuenta Regresiva</h3>
+                <div class="grid grid-cols-4 gap-2 text-center" id="countdown">
+                    <div class="bg-sage-700 text-white p-3 rounded-2xl shadow-sm">
+                        <span id="days" class="font-bold text-xl sm:text-2xl font-mono block">00</span>
+                        <span class="text-[10px] uppercase font-light">Días</span>
+                    </div>
+                    <div class="bg-sage-700 text-white p-3 rounded-2xl shadow-sm">
+                        <span id="hours" class="font-bold text-xl sm:text-2xl font-mono block">00</span>
+                        <span class="text-[10px] uppercase font-light">Horas</span>
+                    </div>
+                    <div class="bg-sage-700 text-white p-3 rounded-2xl shadow-sm">
+                        <span id="minutes" class="font-bold text-xl sm:text-2xl font-mono block">00</span>
+                        <span class="text-[10px] uppercase font-light">Min</span>
+                    </div>
+                    <div class="bg-sage-700 text-white p-3 rounded-2xl shadow-sm">
+                        <span id="seconds" class="font-bold text-xl sm:text-2xl font-mono block">00</span>
+                        <span class="text-[10px] uppercase font-light">Seg</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendario visual -->
+            <div class="bg-white/80 rounded-2xl p-4 shadow-sm border border-sage-100 space-y-2">
+                <h4 class="font-serif font-bold text-sage-800 text-sm">Noviembre 2026</h4>
+                <div class="grid grid-cols-7 text-[10px] font-semibold text-gray-500 py-1">
+                    <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sá</span><span>Do</span>
+                </div>
+                <div class="grid grid-cols-7 text-xs gap-1 text-gray-700 font-mono">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span>1</span>
+                    <span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+                    <span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+                    <span class="bg-sage-700 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold mx-auto shadow-sm ring-2 ring-sage-600/40">14</span>
+                    <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+                    <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+                    <span>29</span><span>30</span>
+                </div>
+            </div>
+
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Joel+%26+Franyelis&dates=20261114T180000/20261114T235900&details=Celebraci%C3%B3n+de+la+Boda+de+Joel+y+Franyelis&location=El+Placer+Cabudare,+Sal%C3%B3n+de+Eventos+Claro+de+Luna" target="_blank" class="inline-block text-xs text-sage-700 underline font-semibold hover:text-sage-800 transition">
+                <i class="far fa-calendar-plus mr-1"></i> Añadir a Google Calendar
+            </a>
+
+            <div class="pt-4">
+                <button onclick="sendRSVP()" class="w-full py-4 px-6 rounded-full bg-sage-700 hover:bg-sage-800 text-white font-semibold text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-lg"></i>
+                    <span>Confirmar Asistencia por WhatsApp</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Ubicación -->
+        <section class="glass-card rounded-3xl p-6 text-center space-y-4">
+            <h2 class="font-serif text-2xl font-bold text-sage-800 uppercase tracking-wide">Lugar de la Recepción</h2>
+            <p class="font-serif text-lg font-semibold text-sage-800">
+                El Placer Cabudare, Salón de Eventos "Claro de Luna"
+            </p>
+
+            <div class="rounded-2xl overflow-hidden shadow-md border border-white h-56 relative bg-gray-200">
+                <iframe 
+                    title="Ubicación Boda" 
+                    class="w-full h-full border-0" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.847113110901!2d-69.2611111!3d10.0286111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e875e0000000001%3A0x0!2sCabudare%2C+Lara!5e0!3m2!1ses!2sve!4v1700000000000" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <a href="https://maps.google.com/?q=El+Placer+Cabudare+Salon+de+Eventos+Claro+de+Luna" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-sage-800 font-semibold text-xs shadow-md hover:bg-sage-50 transition border border-sage-200">
+                <i class="fas fa-map-marker-alt text-sage-600"></i>
+                <span>Abrir en Google Maps / Cómo Llegar</span>
+            </a>
+        </section>
+
+        <!-- Libro de Visitas -->
+        <section class="glass-card rounded-3xl p-6 text-center space-y-4">
+            <h2 class="font-serif text-2xl font-bold text-sage-800 uppercase tracking-wide">Libro de Visitas</h2>
+            
+            <form id="guestbookForm" onsubmit="addWish(event)" class="space-y-3 text-left">
+                <div>
+                    <input type="text" id="guestName" required placeholder="Ingresa tu nombre*" class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-sage-200 text-xs focus:outline-none focus:ring-2 focus:ring-sage-600 text-gray-800 placeholder-gray-400">
+                </div>
+                <div>
+                    <textarea id="guestMessage" required rows="3" placeholder="Escribe tus deseos*" class="w-full px-4 py-3 rounded-2xl bg-white/80 border border-sage-200 text-xs focus:outline-none focus:ring-2 focus:ring-sage-600 text-gray-800 placeholder-gray-400"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 bg-sage-700 hover:bg-sage-800 text-white rounded-2xl text-xs font-semibold uppercase tracking-wider shadow transition flex items-center justify-center gap-2">
+                    <i class="fas fa-paper-plane text-xs"></i>
+                    <span>Enviar Deseos</span>
+                </button>
+            </form>
+
+            <div id="wishesList" class="space-y-3 text-left max-h-60 overflow-y-auto pt-2 no-scrollbar">
+                <p id="noWishesText" class="text-xs text-gray-500 text-center italic py-2">Aún no hay deseos. ¡Sé el primero!</p>
+            </div>
+        </section>
+
+        <!-- Regalos -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 text-center space-y-6">
+            <h2 class="font-serif text-2xl font-bold text-sage-800 uppercase tracking-wide">Caja de Regalos</h2>
+            
+            <div onclick="openGiftModal()" class="cursor-pointer group relative max-w-xs mx-auto p-6 rounded-2xl border-2 border-dashed border-sage-600/40 hover:border-sage-700 transition bg-white/40">
+                <div class="w-20 h-20 mx-auto text-sage-700 mb-2 transform group-hover:scale-110 transition duration-300 flex items-center justify-center">
+                    <i class="fas fa-gift text-5xl"></i>
+                </div>
+                <p class="text-xs font-semibold text-sage-800 uppercase tracking-wider">Toca para abrir</p>
+            </div>
+
+            <p class="text-xs text-gray-700 leading-relaxed italic font-serif px-2">
+                "Su presencia en nuestra boda será el mejor regalo. Pero si desean darnos otro obsequio, les agradeceremos su aporte en nuestra cuenta bancaria."
+            </p>
+        </section>
+
+        <footer class="text-center text-xs text-sage-800/60 pb-6">
+            <p>Joel &amp; Franyelis • 2026</p>
+        </footer>
+
+    </main>
+
+    <div id="giftModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full rounded-3xl p-6 text-center space-y-5 modal-enter relative bg-white/95">
+            <button onclick="closeGiftModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+
+            <div class="w-12 h-12 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center mx-auto text-xl">
+                <i class="fas fa-university"></i>
+            </div>
+
+            <h3 class="font-serif text-2xl font-bold text-sage-800">Datos Bancarios</h3>
+
+            <div class="bg-sage-50 p-4 rounded-2xl text-left space-y-3 text-xs border border-sage-100">
+                <div class="flex justify-between items-center border-b border-sage-200/60 pb-2">
+                    <span class="text-gray-500">Banco:</span>
+                    <span class="font-bold text-sage-800 text-sm">Bancamiga (0172)</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-sage-200/60 pb-2">
+                    <span class="text-gray-500">Cédula:</span>
+                    <span class="font-mono font-bold text-gray-800">25.140.925</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-sage-200/60 pb-2">
+                    <span class="text-gray-500">Pago Móvil / Tlf:</span>
+                    <span class="font-mono font-bold text-gray-800">04129061583</span>
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <p class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Código QR Pago Móvil</p>
+                <div class="bg-white p-2 rounded-xl inline-block shadow-sm border border-gray-200">
+                    <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=PagoMovil-Bancamiga-04129061583-25140925" alt="Código QR Pago Móvil" class="w-32 h-32 mx-auto">
+                </div>
+            </div>
+
+            <button onclick="copyBankDetails()" class="w-full py-2.5 bg-sage-700 hover:bg-sage-800 text-white rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+                <i class="far fa-copy"></i>
+                <span id="copyBtnText">Copiar Datos Bancarios</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let defaultImages = [
+            'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=800'
+        ];
+
+        function safePlayAudio(audioElement) {
+            const playPromise = audioElement.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Audio play prevented or interrupted:", error);
+                });
+            }
+        }
+
+        function openInvitation() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            const main = document.getElementById('mainContent');
+            main.classList.remove('hidden');
+            main.classList.add('modal-enter');
+
+            const music = document.getElementById('bgMusic');
+            safePlayAudio(music);
+
+            renderGallery(defaultImages);
+        }
+
+        function toggleAudio() {
+            const music = document.getElementById('bgMusic');
+            const icon = document.getElementById('musicIcon');
+            if (music.paused) {
+                safePlayAudio(music);
+                icon.className = "fas fa-music text-lg animate-pulse";
+            } else {
+                music.pause();
+                icon.className = "fas fa-volume-mute text-lg";
+            }
+        }
+
+        function renderGallery(images) {
+            const container = document.getElementById('galleryContainer');
+            container.innerHTML = '';
+
+            images.forEach((src, idx) => {
+                const imgDiv = document.createElement('div');
+                imgDiv.className = 'w-full flex-shrink-0 snap-center h-full relative';
+                imgDiv.innerHTML = `<img src="${src}" class="w-full h-full object-cover rounded-2xl" alt="Foto ${idx+1}">`;
+                container.appendChild(imgDiv);
+            });
+
+            document.getElementById('photoCounter').innerText = `1 / ${images.length}`;
+
+            container.onscroll = () => {
+                const total = images.length;
+                const current = Math.round(container.scrollLeft / container.clientWidth) + 1;
+                document.getElementById('photoCounter').innerText = `${Math.min(current, total)} / ${total}`;
+            };
+        }
+
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            if (files && files.length > 0) {
+                const newImages = [];
+                let loaded = 0;
+
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        newImages.push(e.target.result);
+                        loaded++;
+                        if (loaded === files.length) {
+                            renderGallery(newImages);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        const weddingDate = new Date('November 14, 2026 18:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = `<div class="col-span-4 text-center font-bold text-sage-800">¡Llegó el Gran Día!</div>`;
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function sendRSVP() {
+            const phone = "04263581613";
+            const text = encodeURIComponent("¡Hola! Me encantaría confirmar mi asistencia a la boda de Joel Arturo & Franyelis Yelimar el 14 de Noviembre de 2026. ✨");
+            window.open(`https://wa.me/58${phone.substring(1)}?text=${text}`, '_blank');
+        }
+
+        function addWish(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('guestName');
+            const msgInput = document.getElementById('guestMessage');
+            const noWishesText = document.getElementById('noWishesText');
+
+            if (noWishesText) noWishesText.remove();
+
+            const wishesList = document.getElementById('wishesList');
+            const card = document.createElement('div');
+            card.className = "bg-white/80 p-3 rounded-2xl border border-sage-100 shadow-sm space-y-1 text-xs modal-enter";
+            card.innerHTML = `
+                <p class="font-bold text-sage-800">${escapeHtml(nameInput.value)}</p>
+                <p class="text-gray-700 font-serif italic">${escapeHtml(msgInput.value)}</p>
+            `;
+
+            wishesList.prepend(card);
+            nameInput.value = '';
+            msgInput.value = '';
+        }
+
+        function escapeHtml(string) {
+            return String(string).replace(/[&<>"']/g, function (s) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                }[s];
+            });
+        }
+
+        function openGiftModal() {
+            document.getElementById('giftModal').classList.remove('hidden');
+        }
+
+        function closeGiftModal() {
+            document.getElementById('giftModal').classList.add('hidden');
+        }
+
+        function copyBankDetails() {
+            const textToCopy = "Banco: Bancamiga (0172)\nCédula: 25140925\nTeléfono: 04129061583";
+            
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btnText = document.getElementById('copyBtnText');
+            btnText.innerText = "¡Copiado con Éxito!";
+            setTimeout(() => {
+                btnText.innerText = "Copiar Datos Bancarios";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
